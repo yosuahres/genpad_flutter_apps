@@ -1,3 +1,4 @@
 {
-    "dart.flutterSdkPath": "~/Development/flutter"
+    "dart.flutterSdkPath": "~/Development/flutter",
+    "cmake.sourceDirectory": "/Users/hares/Desktop/KERJA/money/application_genpad_local/linux"
 }
