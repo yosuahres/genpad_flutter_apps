@@ -8,8 +8,8 @@ import 'package:application_genpad_local/features/theme_mode/presentation/bloc/t
 
 class FlutterSupabaseStarterApp extends StatelessWidget {
   const FlutterSupabaseStarterApp({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class FlutterSupabaseStarterApp extends StatelessWidget {
 
 class _AppBlocProvider extends StatelessWidget {
   const _AppBlocProvider({
-    super.key,
+    Key? key,
     required this.child,
-  });
+  }) : super(key: key);
 
   final Widget child;
   @override

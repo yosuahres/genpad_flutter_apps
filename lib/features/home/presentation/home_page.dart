@@ -17,9 +17,10 @@ class HomePage extends StatelessWidget {
         buildWhen: (previous, current) => current.selectedIndex != previous.selectedIndex,
         builder: (context, state) {
           return Scaffold(
-            body: SafeArea(
-              child: state.tabs[state.selectedIndex].content,
+            appBar: AppBar(
+              title: const Text('Home Page'),
             ),
+            body: state.tabs[state.selectedIndex].content,
             bottomNavigationBar: HomeNavigationBar(
               selectedIndex: state.selectedIndex,
               tabs: state.tabs,
