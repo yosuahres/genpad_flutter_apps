@@ -1,7 +1,10 @@
 import 'dart:io';
 import '../entities/report.dart';
 import '../../data/repository/report_repository.dart';
+import 'package:injectable/injectable.dart';
 
+
+@injectable
 class UploadReportUseCase {
   final ReportRepository _repository;
 

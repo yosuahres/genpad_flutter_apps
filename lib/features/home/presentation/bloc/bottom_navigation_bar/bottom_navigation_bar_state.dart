@@ -14,6 +14,12 @@ class BottomNavigationBarState extends Equatable {
       tooltip: "Home",
       content: WelcomeContent(),
     ),
+    TabItem(
+      label: "Upload",
+      icon: Icons.upload_file,
+      tooltip: "Upload Report",
+      content: UploaderPage(uploadReportUseCase: getIt<UploadReportUseCase>()),
+    ),
     const TabItem(
       label: "Settings",
       icon: Icons.settings,

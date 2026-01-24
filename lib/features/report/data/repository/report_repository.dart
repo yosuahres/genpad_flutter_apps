@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:storage_client/storage_client.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ReportRepository {
   final SupabaseClient _client;
 

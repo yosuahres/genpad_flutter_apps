@@ -27,6 +27,10 @@ import 'package:application_genpad_local/features/auth/presentation/bloc/login/l
     as _i282;
 import 'package:application_genpad_local/features/home/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_cubit.dart'
     as _i343;
+import 'package:application_genpad_local/features/report/data/repository/report_repository.dart'
+    as _i963;
+import 'package:application_genpad_local/features/report/domain/use_cases/upload_report_use_case.dart'
+    as _i350;
 import 'package:application_genpad_local/features/theme_mode/data/repository/theme_mode_hive_repository.dart'
     as _i480;
 import 'package:application_genpad_local/features/theme_mode/domain/repository/theme_mode_repository.dart'
@@ -79,6 +83,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i745.GetOrSetInitialThemeModeUseCase(gh<_i952.ThemeModeRepository>()));
     gh.factory<_i638.SetThemeModeUseCase>(
         () => _i638.SetThemeModeUseCase(gh<_i952.ThemeModeRepository>()));
+    gh.factory<_i963.ReportRepository>(
+        () => _i963.ReportRepository(gh<_i454.SupabaseClient>()));
     gh.factory<_i290.ThemeModeCubit>(() => _i290.ThemeModeCubit(
           gh<_i745.GetOrSetInitialThemeModeUseCase>(),
           gh<_i638.SetThemeModeUseCase>(),
@@ -96,6 +102,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i718.GetCurrentAuthStateUseCase>(),
           gh<_i551.LogoutUseCase>(),
         ));
+    gh.factory<_i350.UploadReportUseCase>(
+        () => _i350.UploadReportUseCase(gh<_i963.ReportRepository>()));
     gh.factory<_i136.ChangeEmailAddressUseCase>(
         () => _i136.ChangeEmailAddressUseCase(gh<_i669.UserRepository>()));
     gh.factory<_i282.LoginCubit>(
