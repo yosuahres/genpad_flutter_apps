@@ -1,3 +1,4 @@
+//login_with_email_use_case.dart
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,19 +15,22 @@ class LoginWithEmailUseCase extends UseCase<Future<void>, LoginWithEmailParams> 
 
   @override
   Future<void> execute(LoginWithEmailParams params) async {
-    await _authRepository.loginWithEmail(params.email);
+    await _authRepository.loginWithEmailAndPassword(email: params.email, password: params.password);
   }
 }
 
 class LoginWithEmailParams extends Equatable {
   const LoginWithEmailParams({
     required this.email,
+    required this.password,
   });
 
   final String email;
+  final String password;
 
   @override
   List<Object?> get props => [
         email,
+        password
       ];
 }

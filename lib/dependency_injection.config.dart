@@ -21,10 +21,14 @@ import 'package:application_genpad_local/features/auth/domain/use_case/login_wit
     as _i432;
 import 'package:application_genpad_local/features/auth/domain/use_case/logout_use_case.dart'
     as _i551;
+import 'package:application_genpad_local/features/auth/domain/use_case/register_with_email_use_case.dart'
+    as _i403;
 import 'package:application_genpad_local/features/auth/presentation/bloc/auth_bloc.dart'
     as _i1046;
 import 'package:application_genpad_local/features/auth/presentation/bloc/login/login_cubit.dart'
     as _i282;
+import 'package:application_genpad_local/features/auth/presentation/bloc/register/register_cubit.dart'
+    as _i374;
 import 'package:application_genpad_local/features/home/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_cubit.dart'
     as _i343;
 import 'package:application_genpad_local/features/report/data/repository/report_repository.dart'
@@ -97,6 +101,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i432.LoginWithEmailUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i718.GetCurrentAuthStateUseCase>(
         () => _i718.GetCurrentAuthStateUseCase(gh<_i483.AuthRepository>()));
+    gh.factory<_i403.RegisterWithEmailUseCase>(
+        () => _i403.RegisterWithEmailUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i1046.AuthBloc>(() => _i1046.AuthBloc(
           gh<_i107.GetLoggedInUserUseCase>(),
           gh<_i718.GetCurrentAuthStateUseCase>(),
@@ -106,6 +112,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i350.UploadReportUseCase(gh<_i963.ReportRepository>()));
     gh.factory<_i136.ChangeEmailAddressUseCase>(
         () => _i136.ChangeEmailAddressUseCase(gh<_i669.UserRepository>()));
+    gh.factory<_i374.RegisterCubit>(
+        () => _i374.RegisterCubit(gh<_i403.RegisterWithEmailUseCase>()));
     gh.factory<_i282.LoginCubit>(
         () => _i282.LoginCubit(gh<_i432.LoginWithEmailUseCase>()));
     gh.factory<_i551.ChangeEmailAddressCubit>(() =>

@@ -19,19 +19,17 @@ class UploadedReportsPage extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                // Implement search logic here
               },
             ),
             const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
-                itemCount: 10, // Replace with actual data count
+                itemCount: 10, 
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text('Report File #$index'),
                     subtitle: Text('Uploaded on: 2026-01-20'),
                     onTap: () {
-                      // Implement view report logic here
                     },
                   );
                 },

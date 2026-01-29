@@ -1,17 +1,15 @@
-//login_page.dart
+//register_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:application_genpad_local/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:application_genpad_local/features/auth/presentation/bloc/login/login_cubit.dart';
-import 'package:application_genpad_local/features/auth/presentation/widget/login_form.dart';
-import 'package:application_genpad_local/core/extensions/build_context_extensions.dart';
+import 'package:application_genpad_local/features/auth/presentation/bloc/register/register_cubit.dart';
+import 'package:application_genpad_local/features/auth/presentation/widget/register_form.dart';
 import 'package:application_genpad_local/core/router/routes.dart';
 import 'package:application_genpad_local/dependency_injection.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +33,8 @@ class LoginPage extends StatelessWidget {
           ),
           child: SafeArea(
             child: BlocProvider(
-              create: (context) => getIt<LoginCubit>(),
-              child: const LoginForm(),
+              create: (context) => getIt<RegisterCubit>(),
+              child: const RegisterForm(),
             ),
           ),
         ),

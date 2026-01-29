@@ -8,17 +8,17 @@ class BottomNavigationBarState extends Equatable {
 
   final int selectedIndex;
   final tabs = <TabItem>[
+    // const TabItem(
+    //   label: "Home",
+    //   icon: Icons.home,
+    //   tooltip: "Home",
+    //   content: WelcomeContent(),
+    // ),
     const TabItem(
-      label: "Home",
-      icon: Icons.home,
-      tooltip: "Home",
-      content: WelcomeContent(),
-    ),
-    TabItem(
       label: "Upload",
       icon: Icons.upload_file,
       tooltip: "Upload Report",
-      content: UploaderPage(uploadReportUseCase: getIt<UploadReportUseCase>()),
+      content: UploaderPage(),
     ),
     const TabItem(
       label: "Settings",

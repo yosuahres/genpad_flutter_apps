@@ -1,3 +1,4 @@
+//supabase_auth_repository.dart
 import 'package:flutter/foundation.dart';
 import 'package:application_genpad_local/core/constants/urls.dart';
 import 'package:application_genpad_local/features/auth/data/mapper/auth_mapper.dart';
@@ -16,14 +17,26 @@ class SupabaseAuthRepository implements AuthRepository {
   final GoTrueClient _supabaseAuth;
 
   @override
-  Future<void> loginWithEmail(String email) async {
+  Future<void> loginWithEmailAndPassword({required String email, required String password}) async {
     try {
-      await _supabaseAuth.signInWithOtp(
+      await _supabaseAuth.signInWithPassword(
         email: email,
-        emailRedirectTo: kIsWeb ? null : Urls.loginCallbackUrl,
+        password: password,
       );
     } on AuthException catch (error) {
       throw LoginWithEmailException(error.message);
+    }
+  }
+
+  @override
+  Future<void> register({required String email, required String password}) async {
+    try {
+      await _supabaseAuth.signUp(
+        email: email,
+        password: password,
+      );
+    } on AuthException catch (error) {
+      throw Exception(error.message);
     }
   }
 

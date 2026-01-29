@@ -1,28 +1,11 @@
 enum Routes {
-  initial(
-    name: "initial",
-    path: "/",
-  ),
-  login(
-    name: "login",
-    path: "/login",
-  ),
-  home(
-    name: "home",
-    path: "/home",
-  ),
-  settings(
-    name: "settings",
-    path: "/settings",
-  ),
-  changeEmailAddress(
-    name: "changeEmailAddress",
-    path: "/changeEmailAddress",
-  ),
-  themeMode(
-    name: "themeMode",
-    path: "/themeMode",
-  );
+  initial(name: "initial", path: "/"),
+  login(name: "login", path: "/login"),
+  register(name: "register", path: "/register"),
+  home(name: "home", path: "/home"),
+  settings(name: "settings", path: "/settings"),
+  changeEmailAddress(name: "changeEmailAddress", path: "/changeEmailAddress"),
+  themeMode(name: "themeMode", path: "/themeMode");
 
   const Routes({
     required this.path,

@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
-import '../domain/use_cases/upload_report_use_case.dart';
+
+import 'package:application_genpad_local/dependency_injection.dart';
+import 'package:application_genpad_local/features/report/domain/use_cases/upload_report_use_case.dart'; 
 
 class UploaderPage extends StatefulWidget {
-  final UploadReportUseCase uploadReportUseCase;
-
-  const UploaderPage({Key? key, required this.uploadReportUseCase}) : super(key: key);
+  const UploaderPage({super.key});
 
   @override
   State<UploaderPage> createState() => _UploaderPageState();
@@ -99,15 +99,19 @@ class _UploaderPageState extends State<UploaderPage> {
     });
 
     try {
+
+      final uploadReportUseCase = getIt<UploadReportUseCase>();
+      
       for (var image in _scannedImages) {
-        final report = await widget.uploadReportUseCase.execute(
+        final report = await uploadReportUseCase.execute(
           image,
           _fileNameController.text,
         );
 
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Uploaded: ${report.fileName}')),
-        );
+        );  
       }
 
       setState(() {
@@ -115,13 +119,16 @@ class _UploaderPageState extends State<UploaderPage> {
         _fileNameController.clear();
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Upload failed: $e')),
+      if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Upload failed: $e')),
       );
     } finally {
-      setState(() {
-        _isUploading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isUploading = false;
+        });
+      }
     }
   }
 

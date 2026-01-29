@@ -1,3 +1,4 @@
+//get_current_auth_state_use_case.dart
 import 'package:injectable/injectable.dart';
 
 import 'package:application_genpad_local/core/use_cases/no_params.dart';

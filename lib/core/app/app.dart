@@ -18,7 +18,7 @@ class FlutterSupabaseStarterApp extends StatelessWidget {
         buildWhen: (previous, current) => previous.selectedThemeMode != current.selectedThemeMode,
         builder: (context, state) {
           return MaterialApp.router(
-            title: 'Flutter and Supabase Starter',
+            title: 'Genpad',
             routerConfig: router,
             debugShowCheckedModeBanner: false,
             theme: theme,

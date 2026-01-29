@@ -1,26 +1,26 @@
+import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:application_genpad_local/core/router/routes.dart';
 import 'package:application_genpad_local/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:application_genpad_local/features/home/presentation/home_page.dart';
 import 'package:application_genpad_local/features/theme_mode/presentation/page/theme_mode__page.dart';
 import 'package:application_genpad_local/features/user/presentation/page/change_email_address_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../features/auth/presentation/page/login_page.dart';
-import '../../features/settings/presentation/page/settings_page.dart';
+import 'package:application_genpad_local/features/auth/presentation/page/login_page.dart';
+import 'package:application_genpad_local/features/settings/presentation/page/settings_page.dart';
+import 'package:application_genpad_local/features/auth/presentation/page/register_page.dart';
 
 final router = GoRouter(
+  initialLocation: Routes.initial.path,
   routes: [
     GoRoute(
       name: Routes.initial.name,
       path: Routes.initial.path,
       builder: (context, state) => BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is AuthUserAuthenticated) {
+        builder: (context, authState) {
+          if (authState is AuthUserAuthenticated) {
             return const HomePage();
-          } else {
-            return const LoginPage();
           }
+          return const LoginPage();
         },
       ),
     ),
@@ -28,6 +28,11 @@ final router = GoRouter(
       name: Routes.login.name,
       path: Routes.login.path,
       builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      name: Routes.register.name,
+      path: Routes.register.path,
+      builder: (context, state) => const RegisterPage(),
     ),
     GoRoute(
       name: Routes.home.name,
