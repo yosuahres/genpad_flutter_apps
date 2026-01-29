@@ -1,32 +1,21 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:storage_client/storage_client.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class ReportRepository {
   final SupabaseClient _client;
-
   ReportRepository(this._client);
 
   Future<String> uploadFile(File file, String fileName) async {
-    const bucketName = 'reports';
-    final filePath = '${fileName}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    // Unique path: folder/filename_timestamp.jpg
+    final path = 'reports/${fileName}_${DateTime.now().microsecondsSinceEpoch}.jpg';
 
     try {
-      final bucketExists = await _client.storage.from(bucketName).list();
-      if (bucketExists.isEmpty) {
-        await _client.storage.createBucket(bucketName);
-        await _client.storage.updateBucket(
-          bucketName,
-          BucketOptions(public: true),
-        );
-      }
-
-      await _client.storage.from(bucketName).upload(filePath, file);
-      return _client.storage.from(bucketName).getPublicUrl(filePath);
+      await _client.storage.from('reports').upload(path, file);
+      return _client.storage.from('reports').getPublicUrl(path);
     } catch (e) {
-      throw Exception('File upload failed: $e');
+      throw Exception('Supabase Storage Error: $e');
     }
   }
 
@@ -38,7 +27,7 @@ class ReportRepository {
         'uploaded_at': DateTime.now().toIso8601String(),
       });
     } catch (e) {
-      throw Exception('Saving metadata failed: $e');
+      throw Exception('Database Insertion Error: $e');
     }
   }
 }

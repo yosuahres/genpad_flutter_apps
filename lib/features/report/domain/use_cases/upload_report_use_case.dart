@@ -1,23 +1,17 @@
 import 'dart:io';
-import '../entities/report.dart';
-import '../../data/repository/report_repository.dart';
 import 'package:injectable/injectable.dart';
-
+import '../../data/repository/report_repository.dart';
 
 @injectable
 class UploadReportUseCase {
   final ReportRepository _repository;
-
   UploadReportUseCase(this._repository);
 
-  Future<Report> execute(File file, String fileName) async {
-    final imageUrl = await _repository.uploadFile(file, fileName);
-    await _repository.saveReportMetadata(fileName, imageUrl);
-
-    return Report(
-      fileName: fileName,
-      imageUrl: imageUrl,
-      uploadedAt: DateTime.now(),
-    );
+  Future<void> execute(File file, String fileName) async {
+    // 1. Upload to Storage
+    final String publicUrl = await _repository.uploadFile(file, fileName);
+    
+    // 2. Save Reference to Database
+    await _repository.saveReportMetadata(fileName, publicUrl);
   }
 }

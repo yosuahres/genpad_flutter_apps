@@ -7,7 +7,7 @@ import 'package:application_genpad_local/dependency_injection.dart';
 //pages
 import 'package:application_genpad_local/features/home/presentation/widgets/welcome_content.dart';
 import 'package:application_genpad_local/features/settings/presentation/page/settings_page.dart';
-import 'package:application_genpad_local/features/report/presentation/uploader_page.dart'; 
+import 'package:application_genpad_local/features/report/presentation/pages/uploader_page.dart'; 
 import 'package:application_genpad_local/features/report/domain/use_cases/upload_report_use_case.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';

@@ -9,19 +9,15 @@ class Report {
     required this.uploadedAt,
   });
 
-  factory Report.fromJson(Map<String, dynamic> json) {
-    return Report(
-      fileName: json['file_name'],
-      imageUrl: json['image_url'],
-      uploadedAt: DateTime.parse(json['uploaded_at']),
-    );
-  }
+  factory Report.fromJson(Map<String, dynamic> json) => Report(
+        fileName: json['file_name'],
+        imageUrl: json['image_url'],
+        uploadedAt: DateTime.parse(json['uploaded_at']),
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'file_name': fileName,
-      'image_url': imageUrl,
-      'uploaded_at': uploadedAt.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'file_name': fileName,
+        'image_url': imageUrl,
+        'uploaded_at': uploadedAt.toIso8601String(),
+      };
 }
