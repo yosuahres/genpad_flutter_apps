@@ -1,3 +1,4 @@
+//bottom_navigation_bar_state.dart
 part of 'bottom_navigation_bar_cubit.dart';
 
 @immutable
@@ -18,7 +19,7 @@ class BottomNavigationBarState extends Equatable {
       label: "Upload",
       icon: Icons.upload_file,
       tooltip: "Upload Report",
-      content: UploaderPage(),
+      content: UploadedReportsPage(),
     ),
     const TabItem(
       label: "Settings",
