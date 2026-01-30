@@ -97,12 +97,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i551.LogoutUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i107.GetLoggedInUserUseCase>(
         () => _i107.GetLoggedInUserUseCase(gh<_i483.AuthRepository>()));
+    gh.factory<_i403.RegisterWithEmailUseCase>(
+        () => _i403.RegisterWithEmailUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i432.LoginWithEmailUseCase>(
         () => _i432.LoginWithEmailUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i718.GetCurrentAuthStateUseCase>(
         () => _i718.GetCurrentAuthStateUseCase(gh<_i483.AuthRepository>()));
-    gh.factory<_i403.RegisterWithEmailUseCase>(
-        () => _i403.RegisterWithEmailUseCase(gh<_i483.AuthRepository>()));
     gh.factory<_i1046.AuthBloc>(() => _i1046.AuthBloc(
           gh<_i107.GetLoggedInUserUseCase>(),
           gh<_i718.GetCurrentAuthStateUseCase>(),
