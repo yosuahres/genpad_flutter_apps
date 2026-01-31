@@ -1,3 +1,4 @@
+// lib/features/report/domain/entities/report.dart
 class Report {
   final String fileName;
   final String imageUrl;
