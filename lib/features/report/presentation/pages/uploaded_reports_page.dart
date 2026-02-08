@@ -1,5 +1,7 @@
-//uploaded_reports_page.dart
+// lib/features/report/presentation/pages/uploaded_reports_page.dart
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../domain/entities/report.dart';
 
 class UploadedReportsPage extends StatelessWidget {
   const UploadedReportsPage({Key? key}) : super(key: key);
@@ -7,37 +9,27 @@ class UploadedReportsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Uploaded Reports'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Search by File Name',
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (value) {
-              },
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10, 
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Report File #$index'),
-                    subtitle: Text('Uploaded on: 2026-01-20'),
-                    onTap: () {
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+      appBar: AppBar(title: const Text('Document History')),
+      body: StreamBuilder(
+        stream: Supabase.instance.client.from('documents').stream(primaryKey: ['id']),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+          
+          final docs = (snapshot.data as List).map((e) => DocumentEntity.fromJson(e)).toList();
+
+          return ListView.builder(
+            itemCount: docs.length,
+            itemBuilder: (context, index) {
+              final doc = docs[index];
+              return ListTile(
+                leading: const Icon(Icons.file_present),
+                title: Text(doc.filePath.split('/').last),
+                subtitle: Text('Child: ${doc.childId} | Type: ${doc.documentType}'),
+                trailing: Text('${(doc.fileSize / 1024).toStringAsFixed(1)} KB'),
+              );
+            },
+          );
+        },
       ),
     );
   }

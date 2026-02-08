@@ -2,42 +2,31 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:injectable/injectable.dart';
+import '../../domain/entities/report.dart';
 
 @injectable
 class ReportRepository {
   final SupabaseClient _client;
   ReportRepository(this._client);
 
-  Future<List<String>> uploadMultipleFiles(List<File> files, String baseFileName) async {
-    List<String> urls = [];
-    for (int i = 0; i < files.length; i++) {
-      final path = 'reports/${baseFileName}_${DateTime.now().millisecondsSinceEpoch}_$i.jpg';
-      await _client.storage.from('reports').upload(path, files[i]);
-      urls.add(_client.storage.from('reports').getPublicUrl(path));
-    }
-    return urls;
+  /// Uploads a file to Supabase Storage bucket 'documents'
+  Future<String> uploadFile(File file, String remotePath) async {
+    await _client.storage.from('documents').upload(remotePath, file);
+    return remotePath;
   }
 
-  Future<void> saveReportMetadata({
-    required String fileName,
-    required List<String> imageUrls,
-    required String childName,
-    required String region,
-    required String level,
-    required String year,
-  }) async {
+  /// Inserts a record into the 'documents' table
+  Future<void> saveDocumentEntry(DocumentEntity document) async {
     try {
-      await _client.from('reports').insert({
-        'file_name': fileName,
-        'image_urls': imageUrls, // Store as List/JSONB in Supabase
-        'child_name': childName,
-        'region': region,
-        'education_level': level,
-        'academic_year': year,
-        'uploaded_at': DateTime.now().toIso8601String(),
-      });
+      await _client.from('documents').insert(document.toJson());
     } catch (e) {
       throw Exception('Database Error: $e');
     }
+  }
+
+  /// Fetches documents from the 'documents' table
+  Future<List<DocumentEntity>> fetchDocuments() async {
+    final response = await _client.from('documents').select().order('created_at');
+    return (response as List).map((json) => DocumentEntity.fromJson(json)).toList();
   }
 }

@@ -1,6 +1,7 @@
-// lib/features/report/domain/use_cases/upload_report_use_case.dart
+
 import 'dart:io';
 import 'package:injectable/injectable.dart';
+import '../entities/report.dart';
 import '../../data/repository/report_repository.dart';
 
 @injectable
@@ -9,24 +10,31 @@ class UploadReportUseCase {
   UploadReportUseCase(this._repository);
 
   Future<void> execute({
-    required List<File> images,
-    required String fileName,
-    required String childName,
-    required String region,
-    required String level,
-    required String year,
+    required List<File> files,
+    required String childId,
+    required String documentType,
+    required String uploadedBy,
   }) async {
-    // 1. Upload all images to Storage
-    final List<String> urls = await _repository.uploadMultipleFiles(images, fileName);
-    
-    // 2. Save metadata to DB
-    await _repository.saveReportMetadata(
-      fileName: fileName,
-      imageUrls: urls,
-      childName: childName,
-      region: region,
-      level: level,
-      year: year,
-    );
+    for (var file in files) {
+      final fileName = "${DateTime.now().millisecondsSinceEpoch}_${file.path.split('/').last}";
+      final remotePath = 'uploads/$childId/$fileName';
+
+      
+      await _repository.uploadFile(file, remotePath);
+
+      
+      final doc = DocumentEntity(
+        childId: childId,
+        documentType: documentType,
+        filePath: remotePath,
+        fileType: file.path.split('.').last,
+        fileSize: await file.length(),
+        uploadStatus: 'success',
+        uploadedBy: uploadedBy,
+        createdAt: DateTime.now(),
+      );
+
+      await _repository.saveDocumentEntry(doc);
+    }
   }
 }
